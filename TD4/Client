@@ -1,0 +1,66 @@
+java.io.BufferedReader import;
+import java.io.IOException;
+java.io.InputStreamReader import;
+java.io.PrintWriter import;
+java.net.Socket import;
+java.util.Scanner import;
+
+public class Client{
+
+   public static void main (String [] args) {
+   
+      Socket final clientSocket;
+      Final BufferedReader in;
+      final PrintWriter out;
+      Final Scanner sc = new Scanner (System.in); // to read from the keyboard
+
+      try {
+         / *
+         * Server informations (port and IP address or host name
+         * 127.0.0.1 is the host local address
+         * /
+         clientSocket = new Socket ("127.0.0.1", 7777);
+ 
+         // Flow to send
+         out = new PrintWriter (clientSocket.getOutputStream ());
+         // Feed to receive
+         in = new BufferedReader (new InputStreamReader (clientSocket.getInputStream ()));
+ 
+         Thread send = new Thread (new Runnable () {
+             String msg;
+              Override
+              public void run () {
+                while (true) {
+                  sc.nextLine msg = ();
+                  System.out.println (msg);
+                  out.flush ();
+                }
+             }
+         });
+         send.start ();
+ 
+        Thread receive = new Thread (new Runnable () {
+            String msg;
+            Override
+            public void run () {
+               try {
+                 in.readLine msg = ();
+                 while (msg! = null) {
+                    System.out.println ("Server:" + msg);
+                    in.readLine msg = ();
+                 }
+                 System.out.println ("Server deconected");
+                 out.close ();
+                 clientSocket.close ();
+               } Catch (IOException e) {
+                   e.printStackTrace ();
+               }
+            }
+        });
+        receive.start ();
+ 
+      } Catch (IOException e) {
+           e.printStackTrace ();
+      }
+  }
+}
