@@ -1,0 +1,66 @@
+java.io.BufferedReader import;
+import java.io.IOException;
+java.io.InputStreamReader import;
+java.io.PrintWriter import;
+java.net.ServerSocket import;
+java.net.Socket import;
+java.util.Scanner import;
+/ *
+ * javaisback.blogspot.com
+ * /
+public class Server {
+
+   public static void main (String [] test) {
+ 
+     ServerSocket final serverSocket;
+     Socket final clientSocket;
+     Final BufferedReader in;
+     final PrintWriter out;
+     Final Scanner sc = new Scanner (System.in);
+ 
+     try {
+       serverSocket = new ServerSocket (7777);
+       clientSocket serverSocket.accept = ();
+       out = new PrintWriter (clientSocket.getOutputStream ());
+       in = new BufferedReader (new InputStreamReader (clientSocket.getInputStream ()));
+       Thread sending = new Thread (new Runnable () {
+          String msg;
+          Override
+          public void run () {
+             while (true) {
+                sc.nextLine msg = ();
+                System.out.println (msg);
+                out.flush ();
+             }
+          }
+       });
+       envoi.start ();
+ 
+       Thread receive = new Thread (new Runnable () {
+          String msg;
+          Override
+          public void run () {
+             try {
+                in.readLine msg = ();
+                // As the client is connected
+                while (msg! = null) {
+                   System.out.println ("Bonjour Mme:" + msg);
+                   in.readLine msg = ();
+                }
+                // Exit the loop if the client connection is ended
+                System.out.println ("Client deconected");
+                // Close the stream and socket session
+                out.close ();
+                clientSocket.close ();
+                serverSocket.close ();
+             } Catch (IOException e) {
+                  e.printStackTrace ();
+             }
+         }
+      });
+      receive.start ();
+      } Catch (IOException e) {
+         e.printStackTrace ();
+      }
+   }
+}
