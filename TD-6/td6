@@ -37,4 +37,4 @@ degage
  = "d'ici"eu "\n"{return "nefolositor \n";}
 
 other 
- = [^\n]+"\n"{return "Bine, omule!\n";}
+ = [^\n]+"\n"{return "Bien monsieur!\n";}
